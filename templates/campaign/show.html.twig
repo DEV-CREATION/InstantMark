@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Campaign
+{% endblock %}
+
+{% block content_header %}
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>Campagnes</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item">
+							<a href="#">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_campaign_index') }}">Campagnes</a>
+						</li>
+						<li class="breadcrumb-item active">{{ campaign.name }}</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+{% endblock %}
+
+{% block body %}
+	<div
+		class="col-md-4">
+		<!-- Widget: user widget style 1 -->
+		<div
+			class="card card-widget widget-user">
+			<!-- Add the bg color to the header using any of the bg-* classes -->
+			<div class="widget-user-header text-white" style="background: url('{{ asset('dist/img/photo1.png') }}') center center;">
+				<h3 class="widget-user-username text-right">{{ campaign.name }}</h3>
+				<h5 class="widget-user-desc text-right">{{ campaign.banners|length|number_format }}
+					banières</h5>
+			</div>
+			<div class="widget-user-image">
+				<img class="img-circle" src="{{ asset('dist/img/user3-128x128.jpg') }}" alt="User Avatar">
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-sm-4 border-right">
+						<div class="description-block">
+							<h5 class="description-header">{{ campaign.startedAt|date('m-d-Y') }}</h5>
+							<span class="description-text">DEBUT</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-4 border-right">
+						<div class="description-block">
+							<h5 class="description-header">{{ campaign.endedAt|date('m-d-Y') }}</h5>
+							<span class="description-text">FIN</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-4">
+						<div class="description-block">
+							<h5 class="description-header">{{ (campaign.progressRate * 100)|number_format }}%</h5>
+							<span class="description-text">PROGRESSION</span>
+						</div>
+						<!-- /.description-block -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+		</div>
+		<!-- /.widget-user -->
+
+		<div class="row">
+			<a href="{{ path('app_campaign_edit', {'id': campaign.id}) }}" class="btn btn-primary col-md-3 col-sm-6 col-12">Modifier</a>
+			{{ include('campaign/_delete_form.html.twig') }}
+		</div>
+	</div>
+{% endblock %}

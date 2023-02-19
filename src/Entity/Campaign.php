@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CampaignRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource]
 class Campaign
 {
@@ -111,6 +112,12 @@ class Campaign
     #[ORM\ManyToMany(targetEntity: Site::class, inversedBy: 'campaigns')]
     private Collection $sites;
 
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $startedAt = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $endedAt = null;
+
     public function __construct()
     {
         $this->banners = new ArrayCollection();
@@ -120,6 +127,14 @@ class Campaign
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function progressRate(): float
+    {
+        $totalTime = $this->endedAt->getTimestamp() - $this->startedAt->getTimestamp();
+        $spentTime = time() - $this->startedAt->getTimestamp();
+
+        return $spentTime / $totalTime;
     }
 
     public function getName(): ?string
@@ -295,21 +310,22 @@ class Campaign
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setTimestamps(): self
     {
-        $this->updatedAt = $updatedAt;
+        $current = new \DateTimeImmutable();
+        
+        if ($this->createdAt === null) {
+            $this->createdAt = $current;
+        }
+
+        $this->updatedAt = $current;
 
         return $this;
     }
@@ -514,6 +530,30 @@ class Campaign
     public function removeSite(Site $site): self
     {
         $this->sites->removeElement($site);
+
+        return $this;
+    }
+
+    public function getStartedAt(): ?\DateTimeImmutable
+    {
+        return $this->startedAt;
+    }
+
+    public function setStartedAt(\DateTimeImmutable $startedAt): self
+    {
+        $this->startedAt = $startedAt;
+
+        return $this;
+    }
+
+    public function getEndedAt(): ?\DateTimeImmutable
+    {
+        return $this->endedAt;
+    }
+
+    public function setEndedAt(\DateTimeImmutable $endedAt): self
+    {
+        $this->endedAt = $endedAt;
 
         return $this;
     }

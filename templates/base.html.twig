@@ -1,19 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		<!-- Google Font: Source Sans Pro -->
+		<link
+		rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+		<!-- Font Awesome -->
+		<link
+		rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+		<!-- Ionicons -->
+		<link
+		rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{# {{ encore_entry_link_tags('app') }} #}
+		{% endblock %}
+	</head>
+	<body class="hold-transition sidebar-mini">
+		<div class="wrapper">
+
+			{{ include('partials/_navbar.html.twig') }}
+			{{ include('partials/_sidebar.html.twig') }}
+
+			<div class="content-wrapper">
+                {% block content_header %}
+                {% endblock %}
+				<section class="content">
+					<div class="container-fluid">
+                        {% block body %}
+                        {% endblock %}
+                    </div>
+				</section>
+				<a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+					<i class="fas fa-chevron-up"></i>
+				</a>
+			</div>
+
+			{{ include('partials/_footer.html.twig') }}
+		</div>
+
+		<!-- jQuery -->
+		<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+		<!-- Bootstrap 4 -->
+		<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+		<!-- AdminLTE App -->
+		<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+		<!-- AdminLTE for demo purposes -->
+		<script src="{{ asset('dist/js/demo.js') }}"></script>
+		{% block javascripts %}
+			{# {{ encore_entry_script_tags('app') }} #}
+		{% endblock %}
+	</body>
 </html>

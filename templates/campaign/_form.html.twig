@@ -1,0 +1,36 @@
+<!-- SELECT2 EXAMPLE -->
+{{ form_start(form, {"attr": {"class": "card card-default"}}) }}
+  <div class="card-header">
+    <h3 class="card-title">Créer une campagne</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          {{ form_label(form.name) }}
+          {{ form_widget(form.name, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+        </div>
+        
+        <!-- /.form-group -->
+        <div class="form-group">
+          {{ form_label(form.startedAt) }}
+          {{ form_widget(form.startedAt, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+        </div>
+        <!-- /.form-group -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-6">
+        <div class="form-group">
+          {{ form_label(form.endedAt) }}
+          {{ form_widget(form.endedAt, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.card-body -->
+  <div class="card-footer">
+    <button type="submit" class="btn btn-primary">{{ button_label ?? 'Créer' }}</button>
+  </div>
+{{ form_end(form) }}
