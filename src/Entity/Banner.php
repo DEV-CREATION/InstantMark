@@ -39,10 +39,10 @@ class Banner
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $htmlCache = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $width = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $height = null;
 
     #[ORM\Column(nullable: true)]
@@ -107,6 +107,9 @@ class Banner
 
     #[ORM\ManyToMany(targetEntity: Campaign::class, mappedBy: 'banners')]
     private Collection $campaigns;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     public function __construct()
     {
@@ -489,6 +492,18 @@ class Banner
         if ($this->campaigns->removeElement($campaign)) {
             $campaign->removeBanner($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

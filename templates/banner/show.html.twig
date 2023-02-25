@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Banner{% endblock %}
+
+{% block body %}
+    <h1>Banner</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ banner.id }}</td>
+            </tr>
+            <tr>
+                <th>ContentType</th>
+                <td>{{ banner.contentType }}</td>
+            </tr>
+            <tr>
+                <th>PluginVersion</th>
+                <td>{{ banner.pluginVersion }}</td>
+            </tr>
+            <tr>
+                <th>StorageType</th>
+                <td>{{ banner.storageType }}</td>
+            </tr>
+            <tr>
+                <th>Filename</th>
+                <td>{{ banner.filename }}</td>
+            </tr>
+            <tr>
+                <th>ImageUrl</th>
+                <td>{{ banner.imageUrl }}</td>
+            </tr>
+            <tr>
+                <th>HtmlTemplate</th>
+                <td>{{ banner.htmlTemplate }}</td>
+            </tr>
+            <tr>
+                <th>HtmlCache</th>
+                <td>{{ banner.htmlCache }}</td>
+            </tr>
+            <tr>
+                <th>Width</th>
+                <td>{{ banner.width }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ banner.height }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ banner.weight }}</td>
+            </tr>
+            <tr>
+                <th>Seq</th>
+                <td>{{ banner.seq }}</td>
+            </tr>
+            <tr>
+                <th>Target</th>
+                <td>{{ banner.target }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ banner.url }}</td>
+            </tr>
+            <tr>
+                <th>Alt</th>
+                <td>{{ banner.alt }}</td>
+            </tr>
+            <tr>
+                <th>StatusText</th>
+                <td>{{ banner.statusText }}</td>
+            </tr>
+            <tr>
+                <th>BannerText</th>
+                <td>{{ banner.bannerText }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ banner.description }}</td>
+            </tr>
+            <tr>
+                <th>Adserver</th>
+                <td>{{ banner.adserver }}</td>
+            </tr>
+            <tr>
+                <th>Block</th>
+                <td>{{ banner.block }}</td>
+            </tr>
+            <tr>
+                <th>Capping</th>
+                <td>{{ banner.capping }}</td>
+            </tr>
+            <tr>
+                <th>SessionCapping</th>
+                <td>{{ banner.sessionCapping }}</td>
+            </tr>
+            <tr>
+                <th>CompiledLimitation</th>
+                <td>{{ banner.compiledLimitation }}</td>
+            </tr>
+            <tr>
+                <th>SaclPlugins</th>
+                <td>{{ banner.saclPlugins }}</td>
+            </tr>
+            <tr>
+                <th>Append</th>
+                <td>{{ banner.append }}</td>
+            </tr>
+            <tr>
+                <th>BannerType</th>
+                <td>{{ banner.bannerType }}</td>
+            </tr>
+            <tr>
+                <th>AltFilename</th>
+                <td>{{ banner.altFilename }}</td>
+            </tr>
+            <tr>
+                <th>AltImageUrl</th>
+                <td>{{ banner.altImageUrl }}</td>
+            </tr>
+            <tr>
+                <th>AltContentType</th>
+                <td>{{ banner.altContentType }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ banner.comments }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_banner_index') }}">back to list</a>
+
+    <a href="{{ path('app_banner_edit', {'id': banner.id}) }}">edit</a>
+
+    {{ include('banner/_delete_form.html.twig') }}
+{% endblock %}

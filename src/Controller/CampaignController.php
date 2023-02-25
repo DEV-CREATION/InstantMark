@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Campaign;
+use App\Form\CampaignBannersType;
 use App\Form\CampaignType;
+use App\Repository\BannerRepository;
 use App\Repository\CampaignRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +46,34 @@ class CampaignController extends AbstractController
     public function show(Campaign $campaign): Response
     {
         return $this->render('campaign/show.html.twig', [
+            'campaign' => $campaign,
+        ]);
+    }
+
+    #[Route('/{id}/add-banner', name: 'app_campaign_add_banner', methods: ['GET', 'POST'])]
+    public function addBanner(Request $request, Campaign $campaign, BannerRepository $bannerRepository, CampaignRepository $campaignRepository): Response
+    {
+        $form = $this->createForm(CampaignBannersType::class, $campaign, [
+            'banners' => $bannerRepository->findAll(),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $campaignRepository->save($campaign, true);
+
+            return $this->redirectToRoute('app_campaign_banners_index', ['id' => $campaign->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('campaign/banners/add.html.twig', [
+            'campaign' => $campaign,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/banners', name: 'app_campaign_banners_index', methods: ['GET'])]
+    public function bannersIndex(Campaign $campaign): Response
+    {
+        return $this->render('campaign/banners/index.html.twig', [
             'campaign' => $campaign,
         ]);
     }
