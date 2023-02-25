@@ -1,138 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Banner{% endblock %}
+{% block title %}Banières
+{% endblock %}
+
+{% block content_header %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Banières</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('app_banner_index') }}">Banières</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ banner.name }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+{% endblock %}
 
 {% block body %}
-    <h1>Banner</h1>
+    <div
+            class="col-md-4">
+        <!-- Widget: user widget style 1 -->
+        <a href="" class="card card-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header text-white" style="background: url('{{ asset('uploads/banners/' ~ banner.imageUrl) }}') center center; background-size: cover">
+                <h3 class="widget-user-username text-right">{{ banner.name }}</h3>
+                <h5 class="widget-user-desc text-right">{{ banner.campaigns|length|number_format }}
+                    impressions</h5>
+            </div>
+{#            <div class="widget-user-image">#}
+{#                <img class="img-circle" src="{{  }}" alt="User Avatar">#}
+{#            </div>#}
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">{{ banner.campaigns|length|number_format }}</h5>
+                            <span class="description-text">CAMPAGNES</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">{{ banner.campaigns|length|number_format }}</h5>
+                            <span class="description-text">CAMPAGNES</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                            <h5 class="description-header">{{ banner.campaigns|length|number_format }}</h5>
+                            <span class="description-text">CAMPAGNES</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </a>
+        <!-- /.widget-user -->
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ banner.id }}</td>
-            </tr>
-            <tr>
-                <th>ContentType</th>
-                <td>{{ banner.contentType }}</td>
-            </tr>
-            <tr>
-                <th>PluginVersion</th>
-                <td>{{ banner.pluginVersion }}</td>
-            </tr>
-            <tr>
-                <th>StorageType</th>
-                <td>{{ banner.storageType }}</td>
-            </tr>
-            <tr>
-                <th>Filename</th>
-                <td>{{ banner.filename }}</td>
-            </tr>
-            <tr>
-                <th>ImageUrl</th>
-                <td>{{ banner.imageUrl }}</td>
-            </tr>
-            <tr>
-                <th>HtmlTemplate</th>
-                <td>{{ banner.htmlTemplate }}</td>
-            </tr>
-            <tr>
-                <th>HtmlCache</th>
-                <td>{{ banner.htmlCache }}</td>
-            </tr>
-            <tr>
-                <th>Width</th>
-                <td>{{ banner.width }}</td>
-            </tr>
-            <tr>
-                <th>Height</th>
-                <td>{{ banner.height }}</td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td>{{ banner.weight }}</td>
-            </tr>
-            <tr>
-                <th>Seq</th>
-                <td>{{ banner.seq }}</td>
-            </tr>
-            <tr>
-                <th>Target</th>
-                <td>{{ banner.target }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ banner.url }}</td>
-            </tr>
-            <tr>
-                <th>Alt</th>
-                <td>{{ banner.alt }}</td>
-            </tr>
-            <tr>
-                <th>StatusText</th>
-                <td>{{ banner.statusText }}</td>
-            </tr>
-            <tr>
-                <th>BannerText</th>
-                <td>{{ banner.bannerText }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ banner.description }}</td>
-            </tr>
-            <tr>
-                <th>Adserver</th>
-                <td>{{ banner.adserver }}</td>
-            </tr>
-            <tr>
-                <th>Block</th>
-                <td>{{ banner.block }}</td>
-            </tr>
-            <tr>
-                <th>Capping</th>
-                <td>{{ banner.capping }}</td>
-            </tr>
-            <tr>
-                <th>SessionCapping</th>
-                <td>{{ banner.sessionCapping }}</td>
-            </tr>
-            <tr>
-                <th>CompiledLimitation</th>
-                <td>{{ banner.compiledLimitation }}</td>
-            </tr>
-            <tr>
-                <th>SaclPlugins</th>
-                <td>{{ banner.saclPlugins }}</td>
-            </tr>
-            <tr>
-                <th>Append</th>
-                <td>{{ banner.append }}</td>
-            </tr>
-            <tr>
-                <th>BannerType</th>
-                <td>{{ banner.bannerType }}</td>
-            </tr>
-            <tr>
-                <th>AltFilename</th>
-                <td>{{ banner.altFilename }}</td>
-            </tr>
-            <tr>
-                <th>AltImageUrl</th>
-                <td>{{ banner.altImageUrl }}</td>
-            </tr>
-            <tr>
-                <th>AltContentType</th>
-                <td>{{ banner.altContentType }}</td>
-            </tr>
-            <tr>
-                <th>Comments</th>
-                <td>{{ banner.comments }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_banner_index') }}">back to list</a>
-
-    <a href="{{ path('app_banner_edit', {'id': banner.id}) }}">edit</a>
-
-    {{ include('banner/_delete_form.html.twig') }}
+        <div class="row">
+            <a href="{{ path('app_banner_edit', {'id': banner.id}) }}" class="btn btn-primary col-md-3 col-sm-6 col-12">Modifier</a>
+            {{ include('banner/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

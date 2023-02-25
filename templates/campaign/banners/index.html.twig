@@ -39,12 +39,12 @@
                     <div class="card mb-2">
                         <img class="card-img-top" src="{{ asset('uploads/banners/' ~ banner.imageUrl) }}" alt="Dist Photo 3" style="aspect-ratio: 305/203">
                         <div class="card-img-overlay">
-                            <h5 class="card-title text-primary">Card Title</h5>
+                            <h5 class="card-title text-primary">{{ banner.name }}</h5>
                             <p class="card-text pb-1 pt-1 text-white">
-                                Lorem ipsum dolor <br>
-                                sit amet, consectetur <br>
-                                adipisicing elit sed <br>
-                                do eiusmod tempor. </p>
+                                {% for campaign in banner.campaigns %}
+                                    {{ campaign.name }} {% if not loop.last %} <br> {% endif %}
+                                {% endfor %}
+                            </p>
                             <a href="#" class="text-primary">Last update 3 days ago</a>
                         </div>
                     </div>
