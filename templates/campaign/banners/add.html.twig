@@ -40,10 +40,10 @@
                          alt="Dist Photo 3" style="aspect-ratio: 305/203">
                     <div class="card-img-overlay">
                         {{ form_widget(banner, {'attr': {'class': 'form-check-input'}}) }}
-                        <h5 class="card-title text-primary">{{ banner.name }}</h5>
+                        <h5 class="card-title text-primary">{{ banner.vars.attr.name }}</h5>
                         <p class="card-text pb-1 pt-1 text-white">
-                            {% for campaign in banner.campaigns %}
-                                {{ campaign.name }} {% if not loop.last %} <br> {% endif %}
+                            {% for campaign in banner.vars.attr.campaigns[1:-1]|split(',') %}
+                                {{ campaign[1:-1] }} {% if not loop.last %} <br> {% endif %}
                             {% endfor %}
                         </p>
                         <a href="#" class="text-primary">Last update 3 days ago</a>

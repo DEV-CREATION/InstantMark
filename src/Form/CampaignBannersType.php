@@ -23,6 +23,10 @@ class CampaignBannersType extends AbstractType
                 'choice_attr' => function (Banner $banner) {
                     return [
                         'imageUrl' => $banner->getImageUrl(),
+                        'name' => $banner->getName(),
+                        'campaigns' => json_encode($banner->getCampaigns()->map(function (Campaign $campaign) {
+                            return $campaign->getName();
+                        })->toArray()),
                     ];
                 },
                 'multiple' => true,

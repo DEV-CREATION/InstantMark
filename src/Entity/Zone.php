@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ZoneRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
