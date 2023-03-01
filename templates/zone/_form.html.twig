@@ -1,0 +1,41 @@
+<!-- SELECT2 EXAMPLE -->
+{{ form_start(form, {"attr": {"class": "card card-default"}}) }}
+<div class="card-header">
+    <h3 class="card-title">Ajouter une zone</h3>
+</div>
+<!-- /.card-header -->
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+            </div>
+
+            <!-- /.form-group -->
+            <div class="form-group">
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+            </div>
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.width) }}
+                {{ form_widget(form.width, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.height) }}
+                {{ form_widget(form.height, {"attr": {"class": "form-control", "style": "width: 100%"}}) }}
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.card-body -->
+<div class="card-footer">
+    <button type="submit" class="btn btn-primary">{{ button_label ?? 'Ajouter' }}</button>
+</div>
+{{ form_end(form) }}

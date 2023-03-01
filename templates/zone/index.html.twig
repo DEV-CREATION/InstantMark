@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ site.name }} - Zones
+{% block title %}Zones
 {% endblock %}
 
 {% block content_header %}
@@ -16,9 +16,6 @@
                         <li class="breadcrumb-item">
                             <a href="{{ path('app_home') }}">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ path('app_site_show', {'id': site.id}) }}">{{ site.name }}</a>
-                        </li>
                         <li class="breadcrumb-item active">Zones</li>
                     </ol>
                 </div>
@@ -30,8 +27,7 @@
 
 {% block body %}
     <div class="d-flex align-items-center justify-content-between">
-        <h5 class="mt-4 mb-2">Liste des zones du site <strong>{{ site.name }}</strong></h5>
-        <a href="{{ path('app_site_add_zone', {'id': site.id}) }}" class="btn btn-sm btn-primary">Ajouter une zone</a>
+        <h5 class="mt-4 mb-2">Liste des zones</strong></h5>
     </div>
 
     <div class="col-12">
@@ -48,17 +44,19 @@
                         <th>Nom</th>
                         <th>Longueur</th>
                         <th>Largeur</th>
+                        <th>Site</th>
                         <th>Description</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for zone in site.zones %}
+                    {% for zone in zones %}
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ zone.name }}</td>
                             <td>{{ zone.height }}</td>
                             <td>{{ zone.width }}</td>
+                            <td>{{ zone.site.name }}</td>
                             <td>{{ zone.description }}</td>
                             <td>
                                 <a href="{{ path('app_zone_edit', {'id': zone.id}) }}" class="btn btn-primary fa fa-edit"></a>

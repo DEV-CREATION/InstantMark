@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Site;
+use App\Entity\Zone;
 use App\Form\SiteType;
+use App\Form\ZoneType;
 use App\Repository\SiteRepository;
+use App\Repository\ZoneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +56,26 @@ class SiteController extends AbstractController
     {
         return $this->render('site/zones.html.twig', [
             'site' => $site,
+        ]);
+    }
+
+    #[Route('/{id}/add-zone', name: 'app_site_add_zone', methods: ['GET', 'POST'])]
+    public function addZone(Request $request, Site $site, ZoneRepository $zoneRepository): Response
+    {
+        $zone = new Zone();
+        $form = $this->createForm(ZoneType::class, $zone);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $zone->setSite($site);
+            $zoneRepository->save($zone, true);
+
+            return $this->redirectToRoute('app_site_show_zones', ['id' => $site->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('site/add_zone.html.twig', [
+            'zone' => $zone,
+            'form' => $form,
         ]);
     }
 

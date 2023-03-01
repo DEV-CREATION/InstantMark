@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ZoneRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource]
 class Zone
 {
@@ -357,21 +358,22 @@ class Zone
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setTimestamps(): self
     {
-        $this->updatedAt = $updatedAt;
+        $current = new \DateTimeImmutable();
+
+        if ($this->createdAt === null) {
+            $this->createdAt = $current;
+        }
+
+        $this->updatedAt = $current;
 
         return $this;
     }
