@@ -22,7 +22,7 @@ class BannerType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
-                'required' => true,
+                'required' => false,
                 'mapped' => false,
                 'constraints' => [
                     new File([

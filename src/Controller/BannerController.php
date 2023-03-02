@@ -36,7 +36,7 @@ class BannerController extends AbstractController
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
                 try {
                     $imageFile->move(
@@ -50,7 +50,8 @@ class BannerController extends AbstractController
                     return $this->renderForm('banner/new.html.twig', [
                         'banner' => $banner,
                         'form' => $form,
-                    ]);                }
+                    ]);
+                }
 
                 $banner->setImageUrl($newFilename);
             }
@@ -77,7 +78,6 @@ class BannerController extends AbstractController
     #[Route('/{id}/edit', name: 'app_banner_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Banner $banner, BannerRepository $bannerRepository, SluggerInterface $slugger): Response
     {
-        $banner->setImageUrl(new File($this->getParameter('banners_directory').'/'.$banner->getImageUrl()));
         $form = $this->createForm(BannerType::class, $banner);
         $form->handleRequest($request);
 
@@ -87,7 +87,7 @@ class BannerController extends AbstractController
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
 
                 try {
                     $imageFile->move(
@@ -101,7 +101,8 @@ class BannerController extends AbstractController
                     return $this->renderForm('banner/new.html.twig', [
                         'banner' => $banner,
                         'form' => $form,
-                    ]);                }
+                    ]);
+                }
 
                 $banner->setImageUrl($newFilename);
             }
@@ -120,7 +121,7 @@ class BannerController extends AbstractController
     #[Route('/{id}', name: 'app_banner_delete', methods: ['POST'])]
     public function delete(Request $request, Banner $banner, BannerRepository $bannerRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$banner->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $banner->getId(), $request->request->get('_token'))) {
             $bannerRepository->remove($banner, true);
         }
 
