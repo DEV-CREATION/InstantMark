@@ -78,5 +78,9 @@
 			<a href="{{ path('app_campaign_edit', {'id': campaign.id}) }}" class="btn btn-primary col-md-3 col-sm-6 col-12">Modifier</a>
 			{{ include('campaign/_delete_form.html.twig') }}
 		</div>
+		<div class="row my-3">
+			<a href="{{ path('app_campaign_validate', {'id': campaign.id}) }}" class="btn btn-success col-md-3 col-sm-6 col-12 mr-3">Valider</a>
+			<a href="{{ path('app_campaign_refresh', {'id': campaign.id}) }}" class="btn btn-secondary col-md-3 col-sm-6 col-12">Actualiser</a>
+		</div>
 	</div>
 {% endblock %}

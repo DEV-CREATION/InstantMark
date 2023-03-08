@@ -7,6 +7,7 @@ use App\Form\CampaignBannersType;
 use App\Form\CampaignType;
 use App\Repository\BannerRepository;
 use App\Repository\CampaignRepository;
+use App\Service\RegieApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,6 +77,30 @@ class CampaignController extends AbstractController
         return $this->render('campaign/banners/index.html.twig', [
             'campaign' => $campaign,
         ]);
+    }
+
+    #[Route('/{id}/validat', name: 'app_campaign_validate', methods: ['GET'])]
+    public function validate(Campaign $campaign, RegieApi $regieApi): Response
+    {
+        if ($regieApi->createCampaign($campaign)) {
+            $this->addFlash('success', 'La campagne a été validée avec succès.');
+        } else {
+            $this->addFlash('error', 'Une erreur est survenue lors de la validation de la campagne.');
+        }
+
+        return $this->redirectToRoute('app_campaign_show', ['id' => $campaign->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/refresh', name: 'app_campaign_refresh', methods: ['GET'])]
+    public function refresh(Campaign $campaign, RegieApi $regieApi): Response
+    {
+        if ($regieApi->loadCampaign($campaign)) {
+            $this->addFlash('success', 'La campagne a été actualisée avec succès.');
+        } else {
+            $this->addFlash('error', 'Une erreur est survenue lors de l\'actualisation de la campagne.');
+        }
+
+        return $this->redirectToRoute('app_campaign_show', ['id' => $campaign->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/edit', name: 'app_campaign_edit', methods: ['GET', 'POST'])]
