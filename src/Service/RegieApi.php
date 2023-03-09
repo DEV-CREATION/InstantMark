@@ -49,4 +49,19 @@ class RegieApi
 
         return false;
     }
+
+    public function loadSites(): array
+    {
+        $response = $this->client->request('GET', $this->baseUrl . '/sites');
+
+        if ($response->getStatusCode() === 200) {
+            try {
+                return $response->toArray()['hydra:member'] ?? [];
+            } catch (\Exception $e) {
+                return [];
+            }
+        }
+
+        return [];
+    }
 }

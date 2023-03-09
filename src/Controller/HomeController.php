@@ -9,6 +9,7 @@ use App\Repository\SiteRepository;
 use App\Repository\VisitRepository;
 use App\Repository\VueRepository;
 use App\Repository\ZoneRepository;
+use App\Service\RegieApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,5 +44,15 @@ class HomeController extends AbstractController
             'vues',
             'impressions'
         ));
+    }
+
+    #[Route('/validate-regie', name: 'app_validate_regie')]
+    public function validate(RegieApi $regieApi, SiteRepository $siteRepository): Response
+    {
+        foreach ($regieApi->loadSites() as $site) {
+            $siteRepository->save($site, true);
+        }
+
+        return $this->redirectToRoute('app_site_index');
     }
 }
