@@ -79,16 +79,14 @@ class CampaignController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/validat', name: 'app_campaign_validate', methods: ['GET'])]
-    public function validate(Campaign $campaign, RegieApi $regieApi): Response
+    #[Route('/admin/validate', name: 'app_campaign_validate', methods: ['GET'])]
+    public function validate(CampaignRepository $campaignRepository, RegieApi $regieApi): Response
     {
-        if ($regieApi->createCampaign($campaign)) {
-            $this->addFlash('success', 'La campagne a été validée avec succès.');
-        } else {
-            $this->addFlash('error', 'Une erreur est survenue lors de la validation de la campagne.');
+        foreach ($campaignRepository->findAll() as $campaign) {
+            $regieApi->createCampaign($campaign);
         }
 
-        return $this->redirectToRoute('app_campaign_show', ['id' => $campaign->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_campaign_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/refresh', name: 'app_campaign_refresh', methods: ['GET'])]
