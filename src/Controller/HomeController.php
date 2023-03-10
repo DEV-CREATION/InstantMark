@@ -50,7 +50,12 @@ class HomeController extends AbstractController
     #[Route('/validate-regie', name: 'app_validate_regie')]
     public function validate(RegieApi $regieApi, SiteRepository $siteRepository): Response
     {
+        $availableSiteIds = array_map(fn($site) => $site->getId(), $siteRepository->findAll());
+
         foreach ($regieApi->loadSites() as $site) {
+            if (in_array($site['id'], $availableSiteIds)) {
+                continue;
+            }
             $siteRepository->save(
                 (new Site())
                     ->setName($site['name'])
