@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
 use App\Repository\BannerRepository;
 use App\Repository\CampaignRepository;
 use App\Repository\ImpressionRepository;
@@ -50,7 +51,12 @@ class HomeController extends AbstractController
     public function validate(RegieApi $regieApi, SiteRepository $siteRepository): Response
     {
         foreach ($regieApi->loadSites() as $site) {
-            $siteRepository->save($site, true);
+            $siteRepository->save(
+                (new Site())
+                    ->setName($site['name'])
+                    ->setUrl($site['url']),
+                true
+            );
         }
 
         return $this->redirectToRoute('app_site_index');
